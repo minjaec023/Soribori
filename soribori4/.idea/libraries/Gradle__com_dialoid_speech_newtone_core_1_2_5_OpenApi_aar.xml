@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dialoid.speech:newtone.core:1.2.5.OpenApi@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/71a315afff72b0673cc7c95703b36545/newtone.core-1.2.5.OpenApi/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/71a315afff72b0673cc7c95703b36545/newtone.core-1.2.5.OpenApi/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

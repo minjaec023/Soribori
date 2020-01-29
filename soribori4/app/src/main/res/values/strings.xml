@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">soribori</string>
+    <string name="app_title">Soribori Sample</string>
+    <string name="voice_recognition_start">Voice_recognition_start</string>
+    <string name="voice_recognition_stop">Voice_recognition_stop</string>
+    <string name="name_registration">Name_registration</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+    <string name="thread01">Thread01</string>
+    <string name="thread02">Thread02</string>
+    <string name="cancel">Cancel</string>
+    <string name="stop">Stop</string>
+    <string name="restart">Restart</string>
+    <string name="please_enter_only_your_second_name">PLEASE ENTER ONLY YOUR SECOND NAME!!</string>
+</resources>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.dialoid.speech:newtone.core-sandbox:1.2.5.OpenApi-SNAPSHOT@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/445c7b8623975c1f118a948932361568/newtone.core-sandbox-1.2.5.OpenApi-SNAPSHOT/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/445c7b8623975c1f118a948932361568/newtone.core-sandbox-1.2.5.OpenApi-SNAPSHOT/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
