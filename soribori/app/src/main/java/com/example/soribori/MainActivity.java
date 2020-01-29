@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
+        // 음성 인식 버튼을 클릭했을때
         if (id == R.id.Voice_recognition_start) {
             if(PermissionUtils.checkAudioRecordPermission(this)) {
 
