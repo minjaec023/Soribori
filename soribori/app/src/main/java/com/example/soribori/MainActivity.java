@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
-        // 음성 인식 버튼을 클릭했을때
+        // Voice_recognition_start 버튼을 클릭했을때
         if (id == R.id.Voice_recognition_start) {
             if(PermissionUtils.checkAudioRecordPermission(this)) {
 
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if (id == R.id.Name_registration){
             // 화면 넘겨주기
             Intent i = new Intent(getApplicationContext(), Name_registration.class);
-
+            startActivity(i);
 
         }
     }
