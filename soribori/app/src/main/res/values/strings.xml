@@ -12,4 +12,5 @@
     <string name="restart">Restart</string>
     <string name="please_enter_only_your_second_name">PLEASE ENTER ONLY YOUR SECOND NAME!!</string>
     <string name="name_registration1">Name registration!</string>
+    <string name="the_user_name_is_not_yet_registered">The user name is not yet registered.</string>
 </resources>
