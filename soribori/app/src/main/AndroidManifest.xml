@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VoiceRecognizeActivity"></activity>
+        <activity android:name=".SoundClassificationItems"></activity>
+        <activity android:name=".UserCustomSound" />
+        <activity android:name=".VoiceRecognizeActivity" />
         <activity android:name=".Name_registration" />
         <activity android:name=".MainActivity">
             <intent-filter>

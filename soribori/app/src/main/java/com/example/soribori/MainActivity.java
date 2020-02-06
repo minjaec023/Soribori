@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.Voice_recognition_stop).setOnClickListener(this);
         findViewById(R.id.Cancel).setOnClickListener(this);
         findViewById(R.id.Restart).setOnClickListener(this);
+        findViewById(R.id.check_sound_classification_items).setOnClickListener(this);
+        findViewById(R.id.user_s_custom_sound_resgistration).setOnClickListener(this);
         setButtonsStatus(true);
 
         // 클라이언트 생성
@@ -178,6 +180,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
 
         }
+
+        // 유저의 커스텀 소리 등록 액티비티로
+        else if (id == R.id.user_s_custom_sound_resgistration){
+            // 화면 넘겨주기
+            Intent i1 = new Intent(getApplicationContext(), UserCustomSound.class);
+            startActivity(i1);
+        }
+
+        else if (id == R.id.check_sound_classification_items){
+            // 화면 넘겨주기
+            Intent i2 = new Intent(getApplicationContext(), SoundClassificationItems.class);
+            startActivity(i2);
+        }
+
     }
 
     @Override

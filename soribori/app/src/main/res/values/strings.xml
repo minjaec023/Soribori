@@ -13,4 +13,7 @@
     <string name="please_enter_only_your_second_name">PLEASE ENTER ONLY YOUR SECOND NAME!!</string>
     <string name="name_registration1">Name registration!</string>
     <string name="the_user_name_is_not_yet_registered">The user name is not yet registered.</string>
+    <string name="title_activity_user_custom_sound">UserCustomSound</string>
+    <string name="user_s_custom_sound_resgistration">User\'s Custom Sound Resgistration</string>
+    <string name="check_sound_classification_items">Check sound classification items</string>
 </resources>
