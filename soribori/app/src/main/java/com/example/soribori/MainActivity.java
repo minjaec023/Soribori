@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // 음성 인식 취소 버튼 리스너
+        // 취소 버튼을 누르면 그 후에 response 는 따로 없고 그냥 음성 인식 과정이 취소 된다.
         else if (id == R.id.Cancel) {
             if (client != null) {
                 client.cancelRecording();
@@ -167,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // 음성인식 재시작버튼 리스너
+        // 재시작은 이어서 시작하는게 아니라 캔슬 즉 아예취소해버린후 다시시작하는거임.
         else if (id == R.id.Restart) {
             if (client != null) {
                 client.cancelRecording();
