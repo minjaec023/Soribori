@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -42,10 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1; //what number..? maybe 1
     private SpeechRecognizerClient client;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //앱 해시키가 있어야 API 콜이 정상작동하는데 과연 다른 컴퓨터에서도 될지?
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -92,7 +95,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 클라이언트 생성
         // ex code ===>> SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB).setUserDictionary(userdict);  // optional
 
-
+        //등록한 사용자 이름이 날아가면 안되니까
+        //저장된 값을 불러오기 위해 같은 네임파일을 찾음.
+        SharedPreferences sf = getSharedPreferences("sFile",MODE_PRIVATE);
+        //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 ""를 반환
+        String text = sf.getString("UserName","");
+        TextView usernametext = (TextView)findViewById(R.id.User_name_textview);
+        usernametext.setText(text);
 
 
         /**

@@ -3,6 +3,7 @@ package com.example.soribori;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -57,10 +58,33 @@ public class Name_registration extends AppCompatActivity implements View.OnClick
         }
     }
 
+
+    @Override
+    public void onStop(){
+        super.onStop();
+
+
+        // Name Registration Activity가 종료되기 전에 저장한다.
+        //SharedPreferences를 sFile이름, 기본모드로 설정
+        SharedPreferences sharedPreferences = getSharedPreferences("sFile",MODE_PRIVATE);
+        TextView textView3 = (TextView)findViewById(R.id.textView4);
+        //저장을 하기위해 editor를 이용하여 값을 저장시켜준다.
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String text = textView3.getText().toString(); // 사용자가 입력한 저장할 데이터
+        editor.putString("UserName",text); // key, value를 이용하여 저장하는 형태
+        //최종 커밋
+        editor.commit();
+
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
 
 
     }
+
+
+
 }
