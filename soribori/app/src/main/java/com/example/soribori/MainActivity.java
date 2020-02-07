@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.kakao.sdk.newtoneapi.SpeechRecognizeListener;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerActivity;
@@ -62,17 +63,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // 버튼 클릭 리스너 등록
-        findViewById(R.id.Name_registration).setOnClickListener(this);
         findViewById(R.id.Voice_recognition_start).setOnClickListener(this);
         findViewById(R.id.Voice_recognition_stop).setOnClickListener(this);
         findViewById(R.id.Cancel).setOnClickListener(this);
         findViewById(R.id.Restart).setOnClickListener(this);
         findViewById(R.id.check_sound_classification_items).setOnClickListener(this);
         findViewById(R.id.user_s_custom_sound_resgistration).setOnClickListener(this);
+        findViewById(R.id.name_update).setOnClickListener(this);
         setButtonsStatus(true);
 
         // 클라이언트 생성
         // ex code ===>> SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().setServiceType(SpeechRecognizerClient.SERVICE_TYPE_WEB).setUserDictionary(userdict);  // optional
+
+
+
 
         /**
         String userdict = "안녕\n나도안녕\n하이하이";
@@ -88,6 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         */
     }
     // ...
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -97,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setButtonsStatus(boolean enabled) {
-        findViewById(R.id.Name_registration).setEnabled(enabled);
         findViewById(R.id.Voice_recognition_start).setEnabled(enabled);
         findViewById(R.id.Voice_recognition_stop).setEnabled(!enabled);
     }
@@ -173,14 +181,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        // 이름 등록 액티비티로
-        else if (id == R.id.Name_registration){
-            // 화면 넘겨주기
-            Intent i = new Intent(getApplicationContext(), Name_registration.class);
-            startActivity(i);
-
-        }
-
         // 유저의 커스텀 소리 등록 액티비티로
         else if (id == R.id.user_s_custom_sound_resgistration){
             // 화면 넘겨주기
@@ -194,12 +194,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(i2);
         }
 
+        //이름 업데이트 버튼 클릭했을때
+        else if (id == R.id.name_update){
+             // 이름 등록 페이지로부터 이름 받아오기
+
+             Intent intent = new Intent(MainActivity.this , Name_registration.class);
+             startActivityForResult(intent, 1234);
+            // String user_name = intent.getStringExtra("UserName");
+            // System.out.println("!!!!!!!!!!!!!!! Name : " + user_name);
+            // tx1.setText(user_name);
+        }
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        TextView tx1 = (TextView)findViewById(R.id.User_name_textview);
+        if(requestCode == 1234 && resultCode == RESULT_OK){
+            String user_name = data.getStringExtra("UserName");
+            tx1.setText(user_name);
+        }
+        else if (resultCode == RESULT_OK) {
             ArrayList<String> results = data.getStringArrayListExtra(VoiceRecognizeActivity.EXTRA_KEY_RESULT_ARRAY);
 
             final StringBuilder builder = new StringBuilder();

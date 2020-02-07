@@ -16,4 +16,5 @@
     <string name="title_activity_user_custom_sound">UserCustomSound</string>
     <string name="user_s_custom_sound_resgistration">User\'s Custom Sound Resgistration</string>
     <string name="check_sound_classification_items">Check sound classification items</string>
+    <string name="name_update">Name Update</string>
 </resources>
