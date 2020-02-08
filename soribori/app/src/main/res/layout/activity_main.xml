@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.277" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/Thread01_Textview"
         android:layout_width="333dp"
         android:layout_height="107dp"
         android:text="@string/thread01"

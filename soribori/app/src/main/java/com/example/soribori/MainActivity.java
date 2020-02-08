@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kakao.sdk.newtoneapi.SpeechRecognizeListener;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1; //what number..? maybe 1
     private SpeechRecognizerClient client;
-
+    String User_Name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sf = getSharedPreferences("sFile",MODE_PRIVATE);
         //text라는 key에 저장된 값이 있는지 확인. 아무값도 들어있지 않으면 ""를 반환
         String text = sf.getString("UserName","");
+        User_Name = sf.getString("UserName","");
         TextView usernametext = (TextView)findViewById(R.id.User_name_textview);
         usernametext.setText(text);
 
@@ -239,6 +241,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         TextView tx1 = (TextView)findViewById(R.id.User_name_textview);
+        TextView thread01_tx2 = (TextView)findViewById(R.id.Thread01_Textview);
+
+
         if(requestCode == 1234 && resultCode == RESULT_OK){
             String user_name = data.getStringExtra("UserName");
             tx1.setText(user_name);
@@ -253,7 +258,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 builder.append("\n");
             }
 
-            new AlertDialog.Builder(this).
+            thread01_tx2.setText(builder.toString());
+
+
+           /*new AlertDialog.Builder(this).
                     setMessage(builder.toString()).
                     setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -261,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             dialog.dismiss();
                         }
                     }).
-                    show();
+                    show();*/
         } else if (requestCode == RESULT_CANCELED) {
             // 음성인식의 오류 등이 아니라 activity의 취소가 발생했을 때.
             if (data == null) {
@@ -280,6 +288,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 dialog.dismiss();
                             }
                         }).show();
+
+
+
             }
         }
     }
@@ -324,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //써야할듯
         final StringBuilder builder = new StringBuilder();
         Log.i("SpeechSampleActivity", "onResults");
-
+        final TextView thread01_tx1 = (TextView)findViewById(R.id.Thread01_Textview);
         ArrayList<String> texts = results.getStringArrayList(SpeechRecognizerClient.KEY_RECOGNITION_RESULTS);
         ArrayList<Integer> confs = results.getIntegerArrayList(SpeechRecognizerClient.KEY_CONFIDENCE_VALUES);
 
@@ -342,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
 
+                /*
                 AlertDialog.Builder dialog = new AlertDialog.Builder(activity).
                         setMessage(builder.toString()).
                         setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -350,8 +362,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 dialog.dismiss();
                             }
                         });
-                dialog.show();
+                dialog.show();*/
 
+                thread01_tx1.setText(builder.toString());
+
+                //이름이 포함되어있으면 알림
+                if(builder.toString().contains(User_Name) == true) {
+                    Toast.makeText(getApplicationContext(), "누군가가 당신의 이름을 부르고 있습니다!", Toast.LENGTH_LONG).show();
+                }
+
+                if(builder.toString().contains("안녕") == true){
+                    Toast.makeText(getApplicationContext(),"누군가가 당신에게 인사하고 있어요!!", Toast.LENGTH_LONG).show();
+                }
                 setButtonsStatus(true);
             }
         });
