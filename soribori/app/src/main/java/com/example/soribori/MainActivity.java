@@ -218,7 +218,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         // 유저의 커스텀 소리 등록 액티비티로
         else if (id == R.id.user_s_custom_sound_resgistration){
             // 화면 넘겨주기
-            Intent i1 = new Intent(getApplicationContext(), UserCustomSound.class);
+            Intent i1 = new Intent(getApplicationContext(), UserCustomSound_registration.class);
             startActivity(i1);
         }
 

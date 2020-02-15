@@ -58,8 +58,8 @@ public class ToolbarActivity extends AppCompatActivity {
                 return true;
 
             case R.id.registration:
-                Toast.makeText(getApplicationContext(), "등록 화면입니다.", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(this, Name_registration.class);
+                Toast.makeText(getApplicationContext(), "등록 선택 화면입니다.", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(this, RegistrationSelect.class);
                 startActivity(intent2);
                 return true;
 

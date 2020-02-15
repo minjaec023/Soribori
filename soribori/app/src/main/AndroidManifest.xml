@@ -19,19 +19,20 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".SoundClassificationItems" />
-        <activity android:name=".UserCustomSound" />
+        <activity android:name=".UserCustomSound_registration" />
+        <activity android:name=".RegistrationSelect"/>
         <activity android:name=".Setting"/>
-        <activity android:name=".Recording"/>
+        <activity android:name=".Recording">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".VoiceRecognizeActivity" />
         <activity android:name=".Name_registration" />
         <activity android:name=".ToolbarActivity"/>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"/>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
