@@ -1,5 +1,6 @@
 package com.example.soribori;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -16,10 +17,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.kakao.sdk.newtoneapi.SpeechRecognizeListener;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerActivity;
@@ -39,11 +42,12 @@ import java.util.ArrayList;
  */
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, SpeechRecognizeListener {
+public class MainActivity extends ToolbarActivity implements View.OnClickListener, SpeechRecognizeListener {
 
     private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1; //what number..? maybe 1
     private SpeechRecognizerClient client;
     String User_Name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //activity_main을 screen으로 설정
         setContentView(R.layout.activity_main);
-
 
         //유저에게 권한 요청
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

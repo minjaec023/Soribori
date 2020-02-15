@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 
 import com.kakao.sdk.newtoneapi.SpeechRecognizerActivity;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VoiceRecognizeActivity extends SpeechRecognizerActivity {
+
 
     public static String EXTRA_KEY_RESULT_ARRAY = "result_array"; // 결과값 목록. ArrayList<String>
     public static String EXTRA_KEY_MARKED = "marked"; // 첫번째 값의 신뢰도가 현저하게 높은 경우 true. 아니면 false. Boolean

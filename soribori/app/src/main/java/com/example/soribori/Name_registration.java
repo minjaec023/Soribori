@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,9 +14,10 @@ import android.widget.Toast;
 
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 
-public class Name_registration extends AppCompatActivity implements View.OnClickListener {
+public class Name_registration extends ToolbarActivity implements View.OnClickListener {
 
     private static final String TAG = Name_registration.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,15 @@ public class Name_registration extends AppCompatActivity implements View.OnClick
 
 
         //setButtonsStatus(true);
+
+        Button bt_close = (Button) findViewById(R.id.button_close);
+        bt_close.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                finish();
+            }
+        });
+
     }
 
     //버튼이 클릭되면

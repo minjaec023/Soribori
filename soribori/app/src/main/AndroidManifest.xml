@@ -20,8 +20,11 @@
 
         <activity android:name=".SoundClassificationItems" />
         <activity android:name=".UserCustomSound" />
+        <activity android:name=".Setting"/>
+        <activity android:name=".Recording"/>
         <activity android:name=".VoiceRecognizeActivity" />
         <activity android:name=".Name_registration" />
+        <activity android:name=".ToolbarActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
