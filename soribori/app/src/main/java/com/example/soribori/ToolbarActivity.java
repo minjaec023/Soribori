@@ -55,6 +55,7 @@ public class ToolbarActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "녹음 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, Recording.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 return true;
 
@@ -62,6 +63,7 @@ public class ToolbarActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "등록 선택 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(this, RegistrationSelect.class);
                 intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent2.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent2);
                 return true;
 
@@ -69,13 +71,15 @@ public class ToolbarActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "등록된 소리 목록 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(this, SoundClassificationItems.class);
                 intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent3.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent3);
                 return true;
 
             case R.id.setting:
                 Toast.makeText(getApplicationContext(), "환경 설정 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent4 = new Intent(this, Setting.class);
-                intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent4.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent4);
                 return true;
 
