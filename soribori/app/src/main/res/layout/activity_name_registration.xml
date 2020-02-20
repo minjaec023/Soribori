@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Name_registration">
+    tools:context=".Name_registration"
+    android:background="@color/Black">
 
     <TextView
         android:id="@+id/title02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/please_enter_your_name"
+        android:text="이름 등록"
+        android:textColor="@color/White"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,20 +24,25 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/please_enter_only_your_second_name"
+        android:autofillHints="no"
+        android:hint="등록하실 이름을 입력해주세요."
+        android:inputType="textPersonName"
+        android:textColor="#23969494"
+        android:textColorHint="@color/White"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.257"
-        android:autofillHints="no"
-        android:inputType="textPersonName" />
+        app:layout_constraintVertical_bias="0.304" />
 
     <Button
         android:id="@+id/Name_registration1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/name_registration1"
+        android:text="이름 등록"
+        android:textColor="@color/White"
+        android:background="@color/Gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닫기"
+        android:textColor="@color/White"
+        android:background="@color/Gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SoundClassificationItems">
+    tools:context=".SoundClassificationItems"
+    android:background="@color/Black">
 
     <Button
         android:id="@+id/button_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닫기"
+        android:textColor="@color/White"
+        android:background="@color/Gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -24,6 +27,7 @@
         android:layout_height="wrap_content"
         android:textSize="32sp"
         android:text="분류 소리 목록"
+        android:textColor="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -39,7 +43,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.043">
+        app:layout_constraintVertical_bias="0.043"
+        app:tabTextColor="@color/White"
+        app:tabIndicatorColor="@color/White">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -59,7 +65,7 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="344dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

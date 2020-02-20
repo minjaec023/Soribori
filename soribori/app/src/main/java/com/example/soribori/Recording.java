@@ -17,13 +17,6 @@ public class Recording extends ToolbarActivity{
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_record);
 
-        Button bt_close = (Button) findViewById(R.id.button_close);
-        bt_close.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                finish();
-            }
-        });
         Button bt_develop = (Button) findViewById(R.id.develop);
         bt_develop.setOnClickListener(new View.OnClickListener(){
             @Override

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Normal_sound_frag">
+    tools:context=".Normal_sound_frag"
+    android:background="@color/Black">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -17,36 +18,48 @@
             android:id="@+id/checkBox2"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      아기 울음소리" />
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      화재 경보" />
 
         <CheckBox
             android:id="@+id/checkBox4"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      경적소리" />
 
         <CheckBox
             android:id="@+id/checkBox5"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      지하철" />
 
         <CheckBox
             android:id="@+id/checkBox6"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      버스" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:textColor="@color/White"
+            android:buttonTint="@color/White"
             android:text="      사이렌" />
     </LinearLayout>
 </FrameLayout>
