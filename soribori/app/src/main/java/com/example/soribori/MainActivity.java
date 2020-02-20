@@ -123,6 +123,8 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
     }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
