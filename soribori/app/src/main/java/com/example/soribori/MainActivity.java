@@ -5,13 +5,17 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -25,6 +29,8 @@ import com.kakao.sdk.newtoneapi.SpeechRecognizerClient;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 import com.kakao.sdk.newtoneapi.impl.util.PermissionUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -43,6 +49,12 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     private SpeechRecognizerClient client;
     String User_Name;
     boolean AutoRunning = true;
+
+
+    MediaRecorder recorder;
+    String filepath;
+    MediaPlayer player;
+    int position = 0; // 다시 시작 기능을 위한 현재 재생 위치 확인 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +101,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         findViewById(R.id.check_sound_classification_items).setOnClickListener(this);
         findViewById(R.id.user_s_custom_sound_resgistration).setOnClickListener(this);
         findViewById(R.id.name_update).setOnClickListener(this);
+        findViewById(R.id.recoding1).setOnClickListener(this);
         setButtonsStatus(true);
 
         // 클라이언트 생성
@@ -104,20 +117,10 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         usernametext.setText(text);
 
 
-        /**
-        String userdict = "안녕\n나도안녕\n하이하이";
-
-        SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().setUserDictionary(userdict);
-        //여기가 고립어
-        SpeechRecognizerClient client = builder.build();
-
-
-        SpeechRecognizerClient.Builder builder1 = new SpeechRecognizerClient.Builder().setServiceType(SpeechRecognizerClient.SERVICE_TYPE_DICTATION);
-        //15초 정도의 한 문장 인식
-        SpeechRecognizerClient client1 = builder1.build();
-        */
     }
-    // ...
+
+
+
 
     @Override
     protected void onResume() {
@@ -239,6 +242,12 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             // String user_name = intent.getStringExtra("UserName");
             // System.out.println("!!!!!!!!!!!!!!! Name : " + user_name);
             // tx1.setText(user_name);
+        }
+
+        //레코딩 버튼 클릭했을 때
+        else if (id == R.id.recoding1){
+            Intent i3 = new Intent(getApplicationContext(), dv_recording.class);
+            startActivity(i3);
         }
 
     }

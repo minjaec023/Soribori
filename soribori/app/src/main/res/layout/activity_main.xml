@@ -129,14 +129,27 @@
 
     <Button
         android:id="@+id/name_update"
-        android:layout_width="167dp"
-        android:layout_height="48dp"
+        android:layout_width="110dp"
+        android:layout_height="51dp"
         android:text="@string/name_registration"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.169" />
+
+    <Button
+        android:id="@+id/recoding1"
+        android:layout_width="110dp"
+        android:layout_height="57dp"
+        android:text="Recoding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.17" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
