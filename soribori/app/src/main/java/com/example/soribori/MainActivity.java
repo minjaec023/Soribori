@@ -620,39 +620,14 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC); // Microphone audio source 로 부터 음성 데이터를 받음
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // 압축 형식 설정
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        if(recording_counter == 0) {
-            recorder.setOutputFile(filepath01);
-            Log.i("Recording","filepath01");
-            recording_counter++;
+        if(recording_counter == 9) {
+            recorder.setOutputFile(filepath10);
+            Log.i("Recording","filepath10");
+            recording_counter = 0;
         }
-        else if(recording_counter == 1){
-            recorder.setOutputFile(filepath02);
-            Log.i("Recording","filepath02");
-            recording_counter++;
-        }
-        else if(recording_counter == 2){
-            recorder.setOutputFile(filepath03);
-            Log.i("Recording","filepath03");
-            recording_counter++;
-        }
-        else if(recording_counter == 3){
-            recorder.setOutputFile(filepath04);
-            Log.i("Recording","filepath04");
-            recording_counter++;
-        }
-        else if(recording_counter == 4){
-            recorder.setOutputFile(filepath05);
-            Log.i("Recording","filepath05");
-            recording_counter++;
-        }
-        else if(recording_counter == 5){
-            recorder.setOutputFile(filepath06);
-            Log.i("Recording","filepath06");
-            recording_counter++;
-        }
-        else if(recording_counter == 6){
-            recorder.setOutputFile(filepath07);
-            Log.i("Recording","filepath07");
+        else if(recording_counter == 8){
+            recorder.setOutputFile(filepath09);
+            Log.i("Recording","filepath09");
             recording_counter++;
         }
         else if(recording_counter == 7){
@@ -660,15 +635,40 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             Log.i("Recording","filepath08");
             recording_counter++;
         }
-        else if(recording_counter == 8){
-            recorder.setOutputFile(filepath09);
-            Log.i("Recording","filepath09");
+        else if(recording_counter == 6){
+            recorder.setOutputFile(filepath07);
+            Log.i("Recording","filepath07");
             recording_counter++;
         }
-        else if(recording_counter == 9){
-            recorder.setOutputFile(filepath10);
-            Log.i("Recording","filepath10");
-            recording_counter = 0;
+        else if(recording_counter == 5){
+            recorder.setOutputFile(filepath06);
+            Log.i("Recording","filepath06");
+            recording_counter++;
+        }
+        else if(recording_counter == 4){
+            recorder.setOutputFile(filepath05);
+            Log.i("Recording","filepath05");
+            recording_counter++;
+        }
+        else if(recording_counter == 3){
+            recorder.setOutputFile(filepath04);
+            Log.i("Recording","filepath04");
+            recording_counter++;
+        }
+        else if(recording_counter == 2){
+            recorder.setOutputFile(filepath03);
+            Log.i("Recording","filepath03");
+            recording_counter++;
+        }
+        else if(recording_counter == 1){
+            recorder.setOutputFile(filepath02);
+            Log.i("Recording","filepath02");
+            recording_counter++;
+        }
+        else if(recording_counter == 0){
+            recorder.setOutputFile(filepath01);
+            Log.i("Recording","filepath01");
+            recording_counter++;
         }
         try {
             recorder.prepare();
