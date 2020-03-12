@@ -55,7 +55,23 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     boolean isPlaying = false;
     MediaRecorder recorder;
 
-    String filepath;
+
+    ////////////////////////////
+    int recording_counter = 0; //카운터
+    ////////file hardcording//////////
+    String filepath01;
+    String filepath02;
+    String filepath03;
+    String filepath04;
+    String filepath05;
+    String filepath06;
+    String filepath07;
+    String filepath08;
+    String filepath09;
+    String filepath10;
+    //////////////////////////////////
+
+
     MediaPlayer player;
     int position = 0; // 다시 시작 기능을 위한 현재 재생 위치 확인 변수
 
@@ -98,11 +114,48 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
 
 
 
-        /////////////녹음 진행/////////////
+        /////////////녹음 관련/////////////
         recorder = new MediaRecorder();
-        File myrecordingfile = new File( this.getFilesDir() ,"recordefile01.wav");
-        filepath = myrecordingfile.getAbsolutePath();
-        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath);
+        //////////////////////////////////
+        File myrecordingfile01 = new File( this.getFilesDir() ,"recordefile01.wav");
+        filepath01 = myrecordingfile01.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath01);
+        //////////////////////////////////
+        File myrecordingfile02 = new File( this.getFilesDir() ,"recordefile02.wav");
+        filepath02 = myrecordingfile02.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath02);
+        //////////////////////////////////
+        File myrecordingfile03 = new File( this.getFilesDir() ,"recordefile03.wav");
+        filepath03 = myrecordingfile03.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath03);
+        //////////////////////////////////
+        File myrecordingfile04 = new File( this.getFilesDir() ,"recordefile04.wav");
+        filepath04 = myrecordingfile04.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath04);
+        //////////////////////////////////
+        File myrecordingfile05 = new File( this.getFilesDir() ,"recordefile05.wav");
+        filepath05 = myrecordingfile05.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath05);
+        //////////////////////////////////
+        File myrecordingfile06 = new File( this.getFilesDir() ,"recordefile06.wav");
+        filepath06 = myrecordingfile06.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath06);
+        //////////////////////////////////
+        File myrecordingfile07 = new File( this.getFilesDir() ,"recordefile07.wav");
+        filepath07 = myrecordingfile07.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath07);
+        //////////////////////////////////
+        File myrecordingfile08 = new File( this.getFilesDir() ,"recordefile08.wav");
+        filepath08 = myrecordingfile08.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath08);
+        //////////////////////////////////
+        File myrecordingfile09 = new File( this.getFilesDir() ,"recordefile09.wav");
+        filepath09 = myrecordingfile09.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath09);
+        //////////////////////////////////
+        File myrecordingfile10 = new File( this.getFilesDir() ,"recordefile10.wav");
+        filepath10 = myrecordingfile10.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath10);
 
 
         // 버튼 클릭 리스너 등록
@@ -567,7 +620,56 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC); // Microphone audio source 로 부터 음성 데이터를 받음
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // 압축 형식 설정
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-        recorder.setOutputFile(filepath);
+        if(recording_counter == 0) {
+            recorder.setOutputFile(filepath01);
+            Log.i("Recording","filepath01");
+            recording_counter++;
+        }
+        else if(recording_counter == 1){
+            recorder.setOutputFile(filepath02);
+            Log.i("Recording","filepath02");
+            recording_counter++;
+        }
+        else if(recording_counter == 2){
+            recorder.setOutputFile(filepath03);
+            Log.i("Recording","filepath03");
+            recording_counter++;
+        }
+        else if(recording_counter == 3){
+            recorder.setOutputFile(filepath04);
+            Log.i("Recording","filepath04");
+            recording_counter++;
+        }
+        else if(recording_counter == 4){
+            recorder.setOutputFile(filepath05);
+            Log.i("Recording","filepath05");
+            recording_counter++;
+        }
+        else if(recording_counter == 5){
+            recorder.setOutputFile(filepath06);
+            Log.i("Recording","filepath06");
+            recording_counter++;
+        }
+        else if(recording_counter == 6){
+            recorder.setOutputFile(filepath07);
+            Log.i("Recording","filepath07");
+            recording_counter++;
+        }
+        else if(recording_counter == 7){
+            recorder.setOutputFile(filepath08);
+            Log.i("Recording","filepath08");
+            recording_counter++;
+        }
+        else if(recording_counter == 8){
+            recorder.setOutputFile(filepath09);
+            Log.i("Recording","filepath09");
+            recording_counter++;
+        }
+        else if(recording_counter == 9){
+            recorder.setOutputFile(filepath10);
+            Log.i("Recording","filepath10");
+            recording_counter = 0;
+        }
         try {
             recorder.prepare();
         }catch (IOException e) {
@@ -615,7 +717,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             closePlayer();
 
             player = new MediaPlayer();
-            player.setDataSource(filepath);
+            player.setDataSource(filepath01);
             player.prepare();
             player.start();
 
