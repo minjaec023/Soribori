@@ -5,13 +5,17 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -25,9 +29,13 @@ import com.kakao.sdk.newtoneapi.SpeechRecognizerClient;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
 import com.kakao.sdk.newtoneapi.impl.util.PermissionUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -39,10 +47,34 @@ import java.util.ArrayList;
 
 public class MainActivity extends ToolbarActivity implements View.OnClickListener, SpeechRecognizeListener {
 
-    private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1; //what number..? maybe 1
+    private static final int REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE = 1;
     private SpeechRecognizerClient client;
     String User_Name;
     boolean AutoRunning = true;
+    boolean isRecording = false;
+    boolean isPlaying = false;
+    MediaRecorder recorder;
+
+
+    ////////////////////////////
+    int recording_counter = 0; //카운터
+    ////////file hardcording//////////
+    String filepath01;
+    String filepath02;
+    String filepath03;
+    String filepath04;
+    String filepath05;
+    String filepath06;
+    String filepath07;
+    String filepath08;
+    String filepath09;
+    String filepath10;
+    //////////////////////////////////
+
+
+    MediaPlayer player;
+    int position = 0; // 다시 시작 기능을 위한 현재 재생 위치 확인 변수
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +113,63 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         SpeechRecognizerManager.getInstance().initializeLibrary(this);
 
 
+
+        /////////////녹음 관련/////////////
+        recorder = new MediaRecorder();
+        //////////////////////////////////
+        File myrecordingfile01 = new File( this.getFilesDir() ,"recordefile01.wav");
+        filepath01 = myrecordingfile01.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath01);
+        //////////////////////////////////
+        File myrecordingfile02 = new File( this.getFilesDir() ,"recordefile02.wav");
+        filepath02 = myrecordingfile02.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath02);
+        //////////////////////////////////
+        File myrecordingfile03 = new File( this.getFilesDir() ,"recordefile03.wav");
+        filepath03 = myrecordingfile03.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath03);
+        //////////////////////////////////
+        File myrecordingfile04 = new File( this.getFilesDir() ,"recordefile04.wav");
+        filepath04 = myrecordingfile04.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath04);
+        //////////////////////////////////
+        File myrecordingfile05 = new File( this.getFilesDir() ,"recordefile05.wav");
+        filepath05 = myrecordingfile05.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath05);
+        //////////////////////////////////
+        File myrecordingfile06 = new File( this.getFilesDir() ,"recordefile06.wav");
+        filepath06 = myrecordingfile06.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath06);
+        //////////////////////////////////
+        File myrecordingfile07 = new File( this.getFilesDir() ,"recordefile07.wav");
+        filepath07 = myrecordingfile07.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath07);
+        //////////////////////////////////
+        File myrecordingfile08 = new File( this.getFilesDir() ,"recordefile08.wav");
+        filepath08 = myrecordingfile08.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath08);
+        //////////////////////////////////
+        File myrecordingfile09 = new File( this.getFilesDir() ,"recordefile09.wav");
+        filepath09 = myrecordingfile09.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath09);
+        //////////////////////////////////
+        File myrecordingfile10 = new File( this.getFilesDir() ,"recordefile10.wav");
+        filepath10 = myrecordingfile10.getAbsolutePath();
+        Log.d("Recording Service","녹음된 파일 저장된 위치 : " + filepath10);
+
+
         // 버튼 클릭 리스너 등록
         findViewById(R.id.Voice_recognition_start).setOnClickListener(this);
         findViewById(R.id.Voice_recognition_stop).setOnClickListener(this);
         findViewById(R.id.Voice_recognition_auto).setOnClickListener(this);
         findViewById(R.id.Voice_recognition_auto_stop).setOnClickListener(this);
-        findViewById(R.id.check_sound_classification_items).setOnClickListener(this);
-        findViewById(R.id.user_s_custom_sound_resgistration).setOnClickListener(this);
+        findViewById(R.id.auto_recording_recognition).setOnClickListener(this);
+        findViewById(R.id.stop_recording_recognition).setOnClickListener(this);
         findViewById(R.id.name_update).setOnClickListener(this);
+        findViewById(R.id.recoding1).setOnClickListener(this);
+
+        findViewById(R.id.recording_play_bt).setOnClickListener(this);
+        findViewById(R.id.play_stop).setOnClickListener(this);
         setButtonsStatus(true);
 
         // 클라이언트 생성
@@ -104,20 +185,10 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         usernametext.setText(text);
 
 
-        /**
-        String userdict = "안녕\n나도안녕\n하이하이";
-
-        SpeechRecognizerClient.Builder builder = new SpeechRecognizerClient.Builder().setUserDictionary(userdict);
-        //여기가 고립어
-        SpeechRecognizerClient client = builder.build();
-
-
-        SpeechRecognizerClient.Builder builder1 = new SpeechRecognizerClient.Builder().setServiceType(SpeechRecognizerClient.SERVICE_TYPE_DICTATION);
-        //15초 정도의 한 문장 인식
-        SpeechRecognizerClient client1 = builder1.build();
-        */
     }
-    // ...
+
+
+
 
     @Override
     protected void onResume() {
@@ -217,17 +288,51 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             }
         }
 
-        // 유저의 커스텀 소리 등록 액티비티로
-        else if (id == R.id.user_s_custom_sound_resgistration){
-            // 화면 넘겨주기
-            Intent i1 = new Intent(getApplicationContext(), UserCustomSound_registration.class);
-            startActivity(i1);
+        // 녹음 + api 시작
+        else if (id == R.id.auto_recording_recognition){
+            //녹음
+            //settingAudio();
+            //isRecording = true;
+            //recordAudio();
+            ///////////////////////////////
+            //음성인식//////////////////////
+            Log.e("Debug", "im hear111");
+
+            AutoRunning = true;
+            if(PermissionUtils.checkAudioRecordPermission(this)) {
+                //쓰레드 시작
+                try {
+                    ExampleThread thread = new ExampleThread();
+                    ExampleThread2 thread2 = new ExampleThread2();
+                    thread.setDaemon(true);
+                    thread2.setDaemon(true);
+                    thread.start();
+
+                    Log.e("Debug", "im hear222");
+                    thread2.start();
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+
+
         }
 
-        else if (id == R.id.check_sound_classification_items){
-            // 화면 넘겨주기
-            Intent i2 = new Intent(getApplicationContext(), SoundClassificationItems.class);
-            startActivity(i2);
+        // 녹음 + api 중지
+        else if (id == R.id.stop_recording_recognition){
+            //녹음중지
+            isRecording = false;
+            try {
+                finishRecording();
+            }catch (Exception e){
+                Log.i("Recording","finish Recording");
+            }
+            //음성인식중지
+            if (client != null) {
+                client.stopRecording();
+            }
         }
 
         //이름 업데이트 버튼 클릭했을때
@@ -241,12 +346,51 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             // tx1.setText(user_name);
         }
 
+        //레코딩 버튼 클릭했을 때
+        else if (id == R.id.recoding1){
+            Intent i3 = new Intent(getApplicationContext(), dv_recording.class);
+            startActivity(i3);
+        }
+
+        //녹음된거 재생
+        else if (id == R.id.recording_play_bt){
+            if (isPlaying == false) {
+                try {
+                    playAudio();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+                isPlaying = true;
+                player.start();
+            }
+        }
+
+
+        //재생하던거 중지
+        else if (id == R.id.play_stop){
+            if(isPlaying == true) {
+                player.stop();
+                isPlaying = false;
+            }
+        }
+
+        //녹음된거 나중에 재생해볼려면
+        player = new MediaPlayer();
+        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                isPlaying = false;
+            }
+        });
+
+
+
     }
 
     private class ExampleThread extends Thread {
         private static final String TAG = "ExampleThread";
         public void run() {
-            Log.i("ExampleThread", "THREAD RUN");
+            Log.i(TAG, "THREAD RUN");
 
             final String serviceType = SpeechRecognizerClient.SERVICE_TYPE_DICTATION;
 
@@ -256,9 +400,9 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
                 client = builder.build();
                 client.setSpeechRecognizeListener(MainActivity.this);
                 client.startRecording(true);
-                Thread.sleep(3000);
+                sleep(3000);
                 client.stopRecording();
-                Thread.sleep(200);
+                sleep(200);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -266,6 +410,29 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         }
     }
 
+    private class ExampleThread2 extends Thread {
+        private static final String TAG2 = "ExampleThread2";
+        public void run() {
+            Log.i(TAG2, "THREAD RUN2");
+            while(AutoRunning) {
+                try {
+                    Log.e("Debug", "im hear333");
+                    settingAudio();
+                    isRecording = true;
+                    Log.e("Debug", "im hear444");
+                    recordAudio();
+                    isRecording = false;
+                    sleep(3000);
+                    Log.e("Debug", "im hear555");
+                    stopRecording();
+                    sleep(200);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    AutoRunning = false;
+                }
+            }
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -440,4 +607,125 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
     public void onPointerCaptureChanged(boolean hasCapture) {
         //TODO implement interface
     }
+
+    //녹음 초기 세팅 함수
+    private void settingAudio(){
+        /* 그대로 저장하면 용량이 크다.
+         * 프레임 : 한 순간의 음성이 들어오면, 음성을 바이트 단위로 전부 저장하는 것
+         * 초당 15프레임 이라면 보통 8K(8000바이트) 정도가 한순간에 저장됨
+         * 따라서 용량이 크므로, 압축할 필요가 있음 */
+        if (recorder == null){
+            recorder = new MediaRecorder();
+        }
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC); // Microphone audio source 로 부터 음성 데이터를 받음
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // 압축 형식 설정
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        if(recording_counter == 9) {
+            recorder.setOutputFile(filepath10);
+            Log.i("Recording","filepath10");
+            recording_counter = 0;
+        }
+        else if(recording_counter == 8){
+            recorder.setOutputFile(filepath09);
+            Log.i("Recording","filepath09");
+            recording_counter++;
+        }
+        else if(recording_counter == 7){
+            recorder.setOutputFile(filepath08);
+            Log.i("Recording","filepath08");
+            recording_counter++;
+        }
+        else if(recording_counter == 6){
+            recorder.setOutputFile(filepath07);
+            Log.i("Recording","filepath07");
+            recording_counter++;
+        }
+        else if(recording_counter == 5){
+            recorder.setOutputFile(filepath06);
+            Log.i("Recording","filepath06");
+            recording_counter++;
+        }
+        else if(recording_counter == 4){
+            recorder.setOutputFile(filepath05);
+            Log.i("Recording","filepath05");
+            recording_counter++;
+        }
+        else if(recording_counter == 3){
+            recorder.setOutputFile(filepath04);
+            Log.i("Recording","filepath04");
+            recording_counter++;
+        }
+        else if(recording_counter == 2){
+            recorder.setOutputFile(filepath03);
+            Log.i("Recording","filepath03");
+            recording_counter++;
+        }
+        else if(recording_counter == 1){
+            recorder.setOutputFile(filepath02);
+            Log.i("Recording","filepath02");
+            recording_counter++;
+        }
+        else if(recording_counter == 0){
+            recorder.setOutputFile(filepath01);
+            Log.i("Recording","filepath01");
+            recording_counter++;
+        }
+        try {
+            recorder.prepare();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    ///녹음 시작 함수///
+    private void recordAudio(){
+            recorder.start();
+            Log.i("Recording", "녹음 진행중");
+    }
+
+    ///녹음 중지(완료) 함수///
+    private void stopRecording() {
+        if (recorder != null) {
+            recorder.stop();
+            recorder.reset();
+            Log.i("Recording", "녹음 중지됨");
+
+        }
+    }
+
+    //녹음 완전 중지 함수//
+    private void finishRecording(){
+        recorder.stop();
+        recorder.release();
+        recorder = null;
+        AutoRunning = false;
+        Log.i("Recording","녹음 종료됨");
+    }
+
+    //녹음된 소리 파일 재생 중지 함수//
+    public void closePlayer() {
+        if (player != null) {
+            player.release();
+            player = null;
+        }
+    }
+
+    //녹음된 소리 파일 재생 함수//
+    private void playAudio() {
+        try {
+            closePlayer();
+
+            player = new MediaPlayer();
+            player.setDataSource(filepath01);
+            player.prepare();
+            player.start();
+
+            Toast.makeText(this, "재생 시작됨.", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
