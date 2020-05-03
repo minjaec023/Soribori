@@ -12,8 +12,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
+import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
@@ -21,9 +24,11 @@ import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.kakao.sdk.newtoneapi.SpeechRecognizeListener;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerClient;
 import com.kakao.sdk.newtoneapi.SpeechRecognizerManager;
@@ -34,6 +39,15 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static java.lang.Thread.sleep;
 
@@ -58,6 +72,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
 
     ////////////////////////////
     int recording_counter = 0; //카운터
+    int file_select_num = 1; //파일 고르는 카운터
     ////////file hardcording//////////
     String filepath01;
     String filepath02;
@@ -97,10 +112,15 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         setContentView(R.layout.activity_main);
 
         //유저에게 권한 요청
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO) && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_AUDIO_AND_WRITE_EXTERNAL_STORAGE);
             } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
                 // 유저가 거부하면서 다시 묻지 않기를 클릭, 권한이 없다고 유저에게 직접 알림.
             }
         } else {
@@ -167,9 +187,10 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         findViewById(R.id.stop_recording_recognition).setOnClickListener(this);
         findViewById(R.id.name_update).setOnClickListener(this);
         findViewById(R.id.recoding1).setOnClickListener(this);
-
+        findViewById(R.id.testtab).setOnClickListener(this);
         findViewById(R.id.recording_play_bt).setOnClickListener(this);
         findViewById(R.id.play_stop).setOnClickListener(this);
+        findViewById(R.id.send_test).setOnClickListener(this);
         setButtonsStatus(true);
 
         // 클라이언트 생성
@@ -289,7 +310,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         }
 
         // 녹음 + api 시작
-        else if (id == R.id.auto_recording_recognition){
+        else if (id == R.id.auto_recording_recognition) {
             //녹음
             //settingAudio();
             //isRecording = true;
@@ -315,15 +336,13 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
                     e.printStackTrace();
                 }
             }
-
-
-
         }
 
         // 녹음 + api 중지
         else if (id == R.id.stop_recording_recognition){
             //녹음중지
             isRecording = false;
+            AutoRunning = false;
             try {
                 finishRecording();
             }catch (Exception e){
@@ -348,8 +367,15 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
 
         //레코딩 버튼 클릭했을 때
         else if (id == R.id.recoding1){
-            Intent i3 = new Intent(getApplicationContext(), dv_recording.class);
+            Log.i("recording12231","here");
+            Intent i3 = new Intent(MainActivity.this, dv_recording.class);
             startActivity(i3);
+        }
+
+        else if (id == R.id.testtab) {
+            Log.i("test","here");
+            Intent i4 = new Intent(getApplicationContext(), TestTabMain.class);
+            startActivity(i4);
         }
 
         //녹음된거 재생
@@ -372,6 +398,14 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
                 player.stop();
                 isPlaying = false;
             }
+        }
+
+        // 버튼 센드 테스트
+        else if (id == R.id.send_test){
+            Intent send_intent = new Intent();
+            send_intent.setType("audio/*");
+            send_intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(send_intent,1);
         }
 
         //녹음된거 나중에 재생해볼려면
@@ -426,6 +460,50 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
                     Log.e("Debug", "im hear555");
                     stopRecording();
                     sleep(200);
+
+
+                    ////// 여기에 post 코드 추가할것!
+                    if(recording_counter == 0) {
+                        File record_file10 = new File(MainActivity.this.getFilesDir(), "recordefile10.wav");
+                        fileUpload(record_file10);
+                    }
+                    else if(recording_counter == 1) {
+                        File record_file01 = new File(MainActivity.this.getFilesDir(), "recordefile01.wav");
+                        fileUpload(record_file01);
+                    }
+                    else if(recording_counter == 2) {
+                        File record_file02 = new File(MainActivity.this.getFilesDir(), "recordefile02.wav");
+                        fileUpload(record_file02);
+                    }
+                    else if(recording_counter == 3) {
+                        File record_file03 = new File(MainActivity.this.getFilesDir(), "recordefile03.wav");
+                        fileUpload(record_file03);
+                    }
+                    else if(recording_counter == 4) {
+                        File record_file04 = new File(MainActivity.this.getFilesDir(), "recordefile04.wav");
+                        fileUpload(record_file04);
+                    }
+                    else if(recording_counter == 5) {
+                        File record_file05 = new File(MainActivity.this.getFilesDir(), "recordefile05.wav");
+                        fileUpload(record_file05);
+                    }
+                    else if(recording_counter == 6) {
+                        File record_file06 = new File(MainActivity.this.getFilesDir(), "recordefile06.wav");
+                        fileUpload(record_file06);
+                    }
+                    else if(recording_counter == 7) {
+                        File record_file07 = new File(MainActivity.this.getFilesDir(), "recordefile07.wav");
+                        fileUpload(record_file07);
+                    }
+                    else if(recording_counter == 8) {
+                        File record_file08 = new File(MainActivity.this.getFilesDir(), "recordefile08.wav");
+                        fileUpload(record_file08);
+                    }
+                    else if(recording_counter == 9) {
+                        File record_file09 = new File(MainActivity.this.getFilesDir(), "recordefile09.wav");
+                        fileUpload(record_file09);
+                    }
+                    ///////////////////////////////
                 } catch (Exception e) {
                     e.printStackTrace();
                     AutoRunning = false;
@@ -445,6 +523,15 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             String user_name = data.getStringExtra("UserName");
             tx1.setText(user_name);
         }
+        else if (requestCode != 1 || resultCode != RESULT_OK){
+            Log.e("requestcode_resultcode","Error occur");
+            return;
+        }
+        /*else if ( requestCode == 1 && resultCode == RESULT_OK ){
+            Uri dataUri = data.getData();
+            File file = new File(getPathFromUri(dataUri));
+            fileUpload(file);
+        }*/
         else if (resultCode == RESULT_OK) {
             ArrayList<String> results = data.getStringArrayListExtra(VoiceRecognizeActivity.EXTRA_KEY_RESULT_ARRAY);
 
@@ -546,20 +633,22 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             builder.append(")\n");
         }
 
+
+
         final Activity activity = this;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 // finishing일때는 처리하지 않는다.
                 if (activity.isFinishing()) return;
-
+                Log.i("name alarm test2","hi hi2");
                 thread01_tx1.setText(builder.toString());
-
+                Log.i("name alarm test","hi hi");
                 //이름이 포함되어있으면 알림
-                if(builder.toString().contains(User_Name) == true) {
+                if (builder.toString().contains(User_Name) == true) {
                     Toast.makeText(getApplicationContext(), "누군가가 당신의 이름을 부르고 있습니다!", Toast.LENGTH_LONG).show();
-                }
-                    //이부분은 테스트용 안녕 들리면 알림줌.
+                }//이부분은 테스트용 안녕 들리면 알림줌.
+
                 if(builder.toString().contains("안녕") == true){
                     Toast.makeText(getApplicationContext(),"누군가가 당신에게 인사하고 있어요!!", Toast.LENGTH_LONG).show();
                 }
@@ -578,7 +667,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.i("ExmapleThread", "onresult loop end");
+            Log.i("ExmapleThread", "onResult loop end");
         }
 
     }
@@ -620,54 +709,55 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC); // Microphone audio source 로 부터 음성 데이터를 받음
         recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // 압축 형식 설정
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        Log.e("Recording","recording counter value : " + recording_counter);
         if(recording_counter == 9) {
             recorder.setOutputFile(filepath10);
-            Log.i("Recording","filepath10");
+            Log.i("Recording","filepath10 : " + filepath10);
             recording_counter = 0;
         }
         else if(recording_counter == 8){
             recorder.setOutputFile(filepath09);
-            Log.i("Recording","filepath09");
+            Log.i("Recording","filepath09"+ filepath09);
             recording_counter++;
         }
         else if(recording_counter == 7){
             recorder.setOutputFile(filepath08);
-            Log.i("Recording","filepath08");
+            Log.i("Recording","filepath08"+ filepath08);
             recording_counter++;
         }
         else if(recording_counter == 6){
             recorder.setOutputFile(filepath07);
-            Log.i("Recording","filepath07");
+            Log.i("Recording","filepath07"+ filepath07);
             recording_counter++;
         }
         else if(recording_counter == 5){
             recorder.setOutputFile(filepath06);
-            Log.i("Recording","filepath06");
+            Log.i("Recording","filepath06"+ filepath06);
             recording_counter++;
         }
         else if(recording_counter == 4){
             recorder.setOutputFile(filepath05);
-            Log.i("Recording","filepath05");
+            Log.i("Recording","filepath05"+ filepath05);
             recording_counter++;
         }
         else if(recording_counter == 3){
             recorder.setOutputFile(filepath04);
-            Log.i("Recording","filepath04");
+            Log.i("Recording","filepath04"+ filepath04);
             recording_counter++;
         }
         else if(recording_counter == 2){
             recorder.setOutputFile(filepath03);
-            Log.i("Recording","filepath03");
+            Log.i("Recording","filepath03"+ filepath03);
             recording_counter++;
         }
         else if(recording_counter == 1){
             recorder.setOutputFile(filepath02);
-            Log.i("Recording","filepath02");
+            Log.i("Recording","filepath02"+ filepath02);
             recording_counter++;
         }
         else if(recording_counter == 0){
             recorder.setOutputFile(filepath01);
-            Log.i("Recording","filepath01");
+            Log.i("Recording","filepath01"+ filepath01);
             recording_counter++;
         }
         try {
@@ -727,5 +817,69 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
         }
     }
 
+    ////파일 send 하는 함수 관련////
+    public void fileUpload (File file) {
+
+        Log.d("Send Test", "file===" + file.getName());
+
+        RequestBody requestBody;
+        MultipartBody.Part body;
+        LinkedHashMap<String, RequestBody> mapRequestBody = new LinkedHashMap<String, RequestBody>();
+        List<MultipartBody.Part> arrBody = new ArrayList<>();
+
+
+        requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        mapRequestBody.put("file\"; filename=\"" + file.getName(), requestBody);
+        mapRequestBody.put("test", RequestBody.create(MediaType.parse("text/plain"), "gogogogogogogog"));
+
+
+        body = MultipartBody.Part.createFormData("fileName", file.getName(), requestBody);
+        arrBody.add(body);
+        Log.d("Send Test", "checkcheck");
+
+        Call<JsonObject> call =
+                RetrofitImg.getInstance().getService().uploadFile(mapRequestBody, arrBody);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                if (response.body() != null) {
+                    String prediction_result = response.body().get("result").toString();
+                    Log.d("Send Test", prediction_result);
+                    if(prediction_result.equals("1")){//애
+                        Toast.makeText(getApplicationContext(), "아기가 울고 있어요!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(prediction_result.equals("2")){//경적
+                        Toast.makeText(getApplicationContext(), "경적 소리가 울려요!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(prediction_result.equals("3")){//사이렌
+                        Toast.makeText(getApplicationContext(), "사이렌이 울려요!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(prediction_result.equals("4")){//화재
+                        Toast.makeText(getApplicationContext(), "화재 경보기가 울려요!", Toast.LENGTH_SHORT).show();
+                    }
+                    else if(prediction_result.equals("5") || prediction_result.equals("6") || prediction_result.equals("7") || prediction_result.equals("8") || prediction_result.equals("9")){
+                        Toast.makeText(getApplicationContext(), "지하철이 오고 있어요!", Toast.LENGTH_SHORT).show();
+                    }
+                    else  Toast.makeText(getApplicationContext(), "이상이상", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.e("Send Test" + "Err", t.getMessage());
+            }
+        });
+    }
+
+    public String getPathFromUri(Uri uri){
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToNext();
+        String path = cursor.getString(cursor.getColumnIndex("_data"));
+        cursor.close();
+        return path;
+    }
 
 }

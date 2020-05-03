@@ -52,35 +52,31 @@ public class ToolbarActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.record:
-                Toast.makeText(getApplicationContext(), "녹음 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, Recording.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP | intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 return true;
 
             case R.id.registration:
-                Toast.makeText(getApplicationContext(), "등록 선택 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(this, RegistrationSelect.class);
-                intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent2.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent2.setFlags(intent2.FLAG_ACTIVITY_SINGLE_TOP | intent2.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent2);
+                overridePendingTransition(0, 0);
                 return true;
-
             case R.id.classificationList:
-                Toast.makeText(getApplicationContext(), "등록된 소리 목록 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(this, SoundClassificationItems.class);
-                intent3.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent3.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent3.setFlags(intent3.FLAG_ACTIVITY_SINGLE_TOP | intent3.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent3);
+                overridePendingTransition(0, 0);
                 return true;
 
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "환경 설정 화면입니다.", Toast.LENGTH_SHORT).show();
                 Intent intent4 = new Intent(this, Setting.class);
-                intent4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent4.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                intent4.setFlags(intent4.FLAG_ACTIVITY_SINGLE_TOP | intent4.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent4);
+                overridePendingTransition(0, 0);
                 return true;
 
             default:
