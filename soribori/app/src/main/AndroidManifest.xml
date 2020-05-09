@@ -10,14 +10,17 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dv_recording"></activity>
+        <activity android:name=".TestTabMain"></activity>
+        <activity android:name=".dv_recording" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
@@ -32,7 +35,7 @@
         <activity android:name=".UserCustomSound_registration" />
         <activity android:name=".RegistrationSelect" />
         <activity android:name=".Setting" />
-        <activity android:name=".Recording"></activity>
+        <activity android:name=".Recording" />
         <activity android:name=".VoiceRecognizeActivity" />
         <activity android:name=".Name_registration" />
         <activity android:name=".ToolbarActivity" />

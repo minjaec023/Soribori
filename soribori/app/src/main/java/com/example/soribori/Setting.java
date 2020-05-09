@@ -23,6 +23,14 @@ public class Setting extends ToolbarActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0,0);
+        //액티비티 애니메이션 x
+    }
+
+    /*
+    @Override
     public void onBackPressed() {
         // 기존 뒤로가기 버튼의 기능을 막기위해 주석처리 또는 삭제
         // super.onBackPressed();
@@ -44,5 +52,5 @@ public class Setting extends ToolbarActivity {
             finish();
         }
     }
-
+*/
 }

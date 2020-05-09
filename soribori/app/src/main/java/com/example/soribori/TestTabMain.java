@@ -7,37 +7,28 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class SoundClassificationItems extends ToolbarActivity {
+public class TestTabMain extends AppCompatActivity {
     private long backKeyPressedTime = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sound_classification_items);
-
-        Button bt_close = (Button) findViewById(R.id.button_close);
-        bt_close.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                finish();
-            }
-        });
+        setContentView(R.layout.activity_test_tab_main);
 
         //Tablayout
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabLayout2);
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabLayout3);
         tabs.setTabGravity(tabs.GRAVITY_FILL);
 
         //Adapter
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        final MyPagerAdapter myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), 3);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager02);
+        final TestTabMain.MyPagerAdapter myPagerAdapter = new TestTabMain.MyPagerAdapter(getSupportFragmentManager(), 4);
         viewPager.setAdapter(myPagerAdapter);
 
         //탭 선택 이벤트
@@ -58,18 +49,20 @@ public class SoundClassificationItems extends ToolbarActivity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0 :
-                    Normal_sound_frag tab1 = new Normal_sound_frag();
+                    Recording_frag tab1 = new Recording_frag();
                     return tab1;
                 case 1:
-                    Custom_frag tab2 = new Custom_frag();
+                    Register_frag tab2 = new Register_frag();
                     return tab2;
                 case 2:
-                    Phrase_frag tab3 = new Phrase_frag();
+                    SoundClassification_frag tab3 = new SoundClassification_frag();
                     return tab3;
+                case 3:
+                    Setting_frag tab4 = new Setting_frag();
+                    return tab4;
                 default:
                     return null;
             }
-            //return null;
         }
 
         @Override
@@ -78,14 +71,6 @@ public class SoundClassificationItems extends ToolbarActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(0,0);
-        //액티비티 애니메이션 x
-    }
-
-/*
     @Override
     public void onBackPressed() {
         // 기존 뒤로가기 버튼의 기능을 막기위해 주석처리 또는 삭제
@@ -108,5 +93,5 @@ public class SoundClassificationItems extends ToolbarActivity {
             finish();
         }
     }
-*/
+
 }
