@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "file===" + file.getName());
 
-        RequestBody requestBody;
+        final RequestBody requestBody;
         MultipartBody.Part body;
         LinkedHashMap<String, RequestBody> mapRequestBody = new LinkedHashMap<String, RequestBody>();
         List<MultipartBody.Part> arrBody = new ArrayList<>();
@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 if (response.body() != null) {
-
+                    Log.e(TAG, response.body().getAsString());
+                    //Toast.showTo(response.body().getAsString());
                 }
             }
 
@@ -117,5 +118,4 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         return path;
     }
-
 }

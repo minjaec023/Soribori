@@ -136,4 +136,4 @@ class Task:
         for i in range(len(predicted_proba)): 
             category = le.inverse_transform(np.array([i]))
             print(category[0], "\t\t : ", format(predicted_proba[i], '.32f') )
-
+        return predicted_class[0]
