@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".record_hm"></activity>
+        <activity android:name=".recording_hm"></activity>
+        <activity android:name=".toolbar_hm" />
+        <activity android:name=".record_hm" />
         <activity android:name=".dv_recording" />
         <activity
             android:name=".SplashActivity"

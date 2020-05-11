@@ -35,6 +35,7 @@ public class ToolbarActivity extends AppCompatActivity {
         } else {
             toolbar.setVisibility(View.GONE);
         }
+        getSupportActionBar().setTitle("");
     }
     //툴바를 사용할지 말지 정함
     protected boolean useToolbar(){
