@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="62dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="soribori"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/mailtextview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp" app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:textColor="#fff"
+        android:text="Soribori" />
+
+    <TextView
+        android:id="@+id/mailtextview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/mailtextview"
+        android:layout_marginStart="24dp" app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#fff"
+        android:text="valeria28@ajou.ac.kr" />
+
+    <TextView
+        android:id="@+id/mailtextview3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/mailtextview2"
+        android:layout_marginStart="24dp" app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#fff"
+        android:text="minjaec@ajou.ac.kr" />
+
+    <TextView
+        android:id="@+id/mailtextview4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/mailtextview3"
+        android:layout_marginStart="24dp" app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#fff"
+        android:text="gnsals0904@ajou.ac.kr" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
