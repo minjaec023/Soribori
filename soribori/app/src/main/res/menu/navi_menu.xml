@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/go_record"
+            android:icon="@drawable/ic_mic_black_24dp"
+            android:title="Record" />
+        <item
+            android:id="@+id/go_register"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Register" />
+        <item
+            android:id="@+id/go_sound_list"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="Sound List" />
+        <item
+            android:id="@+id/go_setting"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Setting" />
+    </group>
+
+</menu>

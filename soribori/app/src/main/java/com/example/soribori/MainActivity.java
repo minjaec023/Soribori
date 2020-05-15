@@ -374,7 +374,7 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
 
         else if (id == R.id.testtab) {
             Log.i("test","here");
-            Intent i4 = new Intent(getApplicationContext(), TestTabMain.class);
+            Intent i4 = new Intent(getApplicationContext(), recording_hm.class);
             startActivity(i4);
         }
 
