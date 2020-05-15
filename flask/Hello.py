@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from werkzeug.utils import secure_filename
-
+import subprocess
 # task.py의 함수들을 사용하기 위해 import함
 import task
 
@@ -35,9 +35,9 @@ def upload_file():
             return jsonify(result=result)
         # post_type이 사용자 지정 소리를 받아서 업데이트하기 위한 것이라면 다음 실행
         elif request.form.get('post_type')=='user':
-
             # 아직 아무 처리도 안함!
-
+            #subprocess.run(['./test.sh'], shell=True)
+            worker.make_csv()
             print('user_OK')
             return 'upload success'
 

@@ -22,6 +22,8 @@ from keras.models import load_model
 from datetime import datetime 
 import pickle
 import time
+import glob
+import csv
 
 class Task:
     def __init__(self):
@@ -136,4 +138,39 @@ class Task:
         for i in range(len(predicted_proba)): 
             category = le.inverse_transform(np.array([i]))
             print(category[0], "\t\t : ", format(predicted_proba[i], '.32f') )
+
         return predicted_class[0]
+    
+    def make_csv(self):
+        # [fold1, fold2, ... , custom1, custom2, ...] 폴더들이 포함된 폴더 경로 입력
+        path = "./sound/"
+        file_list = os.listdir(path)
+        custom_fold_list = []
+
+        for i in range(len(file_list)):
+            if('custom' in file_list[i]):
+                custom_fold_list.append(file_list[i])
+
+        # 메타데이터 경로 입력
+        metadata_path = './data/metadata.csv'
+        f = open(metadata_path,'a',newline='')
+        wr = csv.writer(f)
+        custom_fold = custom_fold_list[-1]
+        custom_file_list = glob.glob('./sound/' +custom_fold+ '/*.wav')
+        
+        print(len(custom_file_list))
+        print(custom_fold)
+        for i in range(len(custom_file_list)):
+            slice_file_name = custom_file_list[i]
+            #slice_file_name = slice_file_name.replace(custom_fold,'')
+            #slice_file_name = slice_file_name.replace("\\",'')
+            slice_file_name = slice_file_name.replace("./sound/", '')
+            slice_file_name = slice_file_name.replace("/", '(')
+            slice_file_name = slice_file_name.replace(".", ').')
+            fold = len(custom_fold_list)+9
+            class_ = custom_fold_list[-1]
+            wr.writerow([slice_file_name,fold,fold,class_])
+        f.close()
+            
+
+
