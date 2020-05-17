@@ -136,5 +136,4 @@ public abstract class toolbar_hm extends AppCompatActivity {
         }
     }
 
-    public abstract void onClick(View v);
 }

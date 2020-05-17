@@ -10,6 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
@@ -43,7 +44,13 @@ public class recording_hm extends toolbar_hm {
         mic_imageview = (ImageView) findViewById(R.id.mic_imageview);
         mic_imageview.setBackgroundResource(R.drawable.myshaperound_mic);
         mic_imageview.setClipToOutline(true);
-
+        mic_imageview.setOnClickListener(new ImageView.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.i("click", "hi");
+                mic_imageview.setSelected(!mic_imageview.isSelected());
+            }
+        });
 
         final WaveView waveView;
         waveView = (WaveView) findViewById(R.id.waveView1);
@@ -78,13 +85,6 @@ public class recording_hm extends toolbar_hm {
             }
         });
 
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        mic_imageview.setSelected(!mic_imageview.isSelected());
 
     }
 
