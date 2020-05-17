@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class toolbar_hm extends AppCompatActivity {
+public abstract class toolbar_hm extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -136,4 +136,5 @@ public class toolbar_hm extends AppCompatActivity {
         }
     }
 
+    public abstract void onClick(View v);
 }
