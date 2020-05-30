@@ -2,11 +2,16 @@ package com.example.soribori;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +22,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class toolbar_hm extends AppCompatActivity {
+public abstract class toolbar_hm extends AppCompatActivity {
 
     DrawerLayout mDrawerLayout;
     private Context context = this;
@@ -54,8 +59,8 @@ public class toolbar_hm extends AppCompatActivity {
 
 
         //추가된 소스코드, Toolbar의 왼쪽에 버튼을 추가하고 버튼의 아이콘을 바꾼다.
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_name);
         getSupportActionBar().setDisplayShowTitleEnabled(false); //기본 타이틀 보여줄지 말지 설정
 
 
@@ -127,7 +132,7 @@ public class toolbar_hm extends AppCompatActivity {
         if( useDrawerToggle()) { // use the hamburger menu
             drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
                     R.string.navigation_drawer_open,
-                    R.string.navigation_drawer_close);
+                     R.string.navigation_drawer_close);
             mDrawerLayout.addDrawerListener(drawerToggle);
             drawerToggle.syncState();
         } else if(useToolbar() && getSupportActionBar() != null) {
