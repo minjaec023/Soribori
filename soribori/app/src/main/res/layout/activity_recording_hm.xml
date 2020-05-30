@@ -4,47 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hm_black_purple_background"
     tools:context=".recording_hm">
 
     <com.gelitenight.waveview.library.WaveView
         android:id="@+id/waveView1"
-        android:layout_width="198dp"
-        android:layout_height="229dp"
+        android:layout_width="314dp"
+        android:layout_height="371dp"
         android:layout_weight="1"
 
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.494"
 
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.352" />
-
-    <Button
-        android:id="@+id/waveview_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
-
-    <Button
-        android:id="@+id/waveview_btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="stop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.668"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintVertical_bias="0.286" />
 
     <ImageView
         android:id="@+id/mic_imageview"
@@ -54,7 +31,7 @@
         android:src="@drawable/mic_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.916"
@@ -76,16 +53,44 @@
 
     <ImageView
         android:id="@+id/storage_imageview"
-        android:clickable="true"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.944"
-        app:srcCompat="@drawable/ic_storage_gray_24dp" />
+        app:srcCompat="@drawable/ic_storage_black_24dp" />
+
+    <TextView
+        android:id="@+id/soribori_name"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="Soribori"
+        android:textColor="@color/White"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/waveView1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <TextView
+        android:id="@+id/timer_textview"
+        android:layout_width="311dp"
+        android:layout_height="84dp"
+        android:text="00:00:00"
+        android:gravity="center_horizontal"
+        android:textColor="@color/White"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/mic_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waveView1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
@@ -33,7 +34,7 @@ public class recording_hm extends toolbar_hm {
     ImageView mic_imageview;
     ImageView stop_imageview;
     ImageView storage_imageview;
-    private int mBorderColor = Color.parseColor("#44FFFFFF");
+    private int mBorderColor = Color.parseColor("#6BDBD9DF");
     private int mBorderWidth = 10;
 
 
@@ -43,10 +44,38 @@ public class recording_hm extends toolbar_hm {
         setContentView(R.layout.activity_recording_hm);
 
         Toolbar toolbar_hm = (Toolbar) findViewById(R.id.toolbar_hm);
+        toolbar_hm.setBackgroundColor(Color.parseColor("#150024"));
         TextView toolbar_title = (TextView) toolbar_hm.findViewById(R.id.toolbar_title);
+        toolbar_title.setTextColor(Color.WHITE);
         toolbar_title.setText("Record");
 
+        TextView soribori_textView = (TextView) findViewById(R.id.soribori_name);
+        soribori_textView.setPaintFlags( soribori_textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
+
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////wave veiw//////////////////////////
+        final WaveView waveView;
+        waveView = (WaveView) findViewById(R.id.waveView1);
+        waveView.setBorder(mBorderWidth, mBorderColor);
+
+        mWaveHelper = new WaveHelper(waveView);
+
+        waveView.setShapeType(WaveView.ShapeType.CIRCLE);
+        waveView.setWaveColor(
+                Color.parseColor("#DBD9DF"),
+                Color.parseColor("#6BDBD9DF")
+        );
+
+        mBorderColor = Color.parseColor("#6BDBD9DF");
+        waveView.setBorder(mBorderWidth, mBorderColor);
+
+        ////////////////////////wave veiw//////////////////////////
+        ////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////
+
+        //btn
         mic_imageview = (ImageView) findViewById(R.id.mic_imageview);
         mic_imageview.setBackgroundResource(R.drawable.myshaperound_mic);
         mic_imageview.setClipToOutline(true);
@@ -58,10 +87,16 @@ public class recording_hm extends toolbar_hm {
                 if(mic_imageview.isSelected() == true) {
                     mic_imageview.setBackgroundResource(R.drawable.myshaperound_pause);
                     mic_imageview.setClipToOutline(true);
+                    //일시정지버튼 눌렀을 때
+                    if(waveView.isShowWave() == true) {
+                        mWaveHelper.cancel();
+                    }
                 }
                 else if(mic_imageview.isSelected() == false){
                     mic_imageview.setBackgroundResource(R.drawable.myshaperound_mic);
                     mic_imageview.setClipToOutline(true);
+                    //마이크 버튼 눌렀을 때
+                    mWaveHelper.start();
                 }
             }
         });
@@ -96,38 +131,7 @@ public class recording_hm extends toolbar_hm {
         });
 
 
-        final WaveView waveView;
-        waveView = (WaveView) findViewById(R.id.waveView1);
-        waveView.setBorder(mBorderWidth, mBorderColor);
 
-        mWaveHelper = new WaveHelper(waveView);
-
-        waveView.setShapeType(WaveView.ShapeType.CIRCLE);
-        waveView.setWaveColor(
-                Color.parseColor("#88b8f1ed"),
-                Color.parseColor("#b8f1ed")
-        );
-
-        mBorderColor = Color.parseColor("#b8f1ed");
-        waveView.setBorder(mBorderWidth, mBorderColor);
-
-        Button waveview_btn = (Button) findViewById(R.id.waveview_btn);
-        waveview_btn.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mWaveHelper.start();
-            }
-        });
-
-        Button waveview_btn2 = (Button) findViewById(R.id.waveview_btn2);
-        waveview_btn2.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(waveView.isShowWave() == true) {
-                    mWaveHelper.cancel();
-                }
-            }
-        });
 
 
     }
