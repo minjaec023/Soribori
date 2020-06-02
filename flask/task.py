@@ -29,12 +29,33 @@ class Task:
     def __init__(self):
         self.features = []
         self.fulldatasetpath = 'sound/'
-        self.metadata = pd.read_csv('data/metadata.csv')
     
+    def user_label(self):
+        features = []
+        metadata = pd.read_csv('data/metadata.csv')
+        length = metadata.shape[0]-1
+        class_label = metadata.iloc[length]['classID']
+        for i in range(16):
+            file_name = 'mixing_test/output_mixed/' + str(i) + '.wav'
+            data = self.extract_features(file_name)
+            features.append([data, class_label])
+        
+        new_featuresdf = pd.DataFrame(features, columns = ['feature', 'class_label'])
+
+        with open('sample_feature.pickle', 'rb') as f:
+            featuresdf = pickle.load(f)
+
+        featuresdf = featuresdf.append(new_featuresdf)
+        
+        with open('sample_feature.pickle', 'wb') as f:
+            pickle.dump(featuresdf, f)
+
     def label(self):
+        self.features = []
+        metadata = pd.read_csv('data/metadata.csv')
         sum = 0
         # Iterate through each sound file and extract the features
-        for index, row in self.metadata.iterrows():
+        for index, row in metadata.iterrows():
             file_name = os.path.join(os.path.abspath(self.fulldatasetpath),'fold'+str(row["fold"])+'/',str(row["slice_file_name"]))      
             class_label = row["classID"]
             data = self.extract_features(file_name)

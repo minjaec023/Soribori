@@ -33,11 +33,12 @@ def upload_file():
 
             # jsonify함수를 통해 결과를 json형식으로 안드로이드에 날림
             return jsonify(result=result)
+
         # post_type이 사용자 지정 소리를 받아서 업데이트하기 위한 것이라면 다음 실행
         elif request.form.get('post_type')=='user':
-            # 아직 아무 처리도 안함!
-            #subprocess.run(['./test.sh'], shell=True)
+            subprocess.run(['./test.sh'], shell=True)
             worker.make_csv()
+            worker.user_label()
             print('user_OK')
             return 'upload success'
 
@@ -57,4 +58,5 @@ if __name__ == '__main__':
     # 디버그 모드를 활성화했으므로 서버에서 코드 수정이 일어나면 자동으로 재실행됨.
     # 근데 디버그 모드를 활성하면 초기에 서버 실행이 두 번 된다. 이건 어쩔수 없는 듯.
     app.run(host='0.0.0.0', debug = True)
+    
     
