@@ -10,9 +10,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -56,42 +58,49 @@ public abstract class toolbar_hm extends AppCompatActivity {
             toolbar.setVisibility(View.GONE);
         }
 
-
-
         //추가된 소스코드, Toolbar의 왼쪽에 버튼을 추가하고 버튼의 아이콘을 바꾼다.
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false); //기본 타이틀 보여줄지 말지 설정
-
-
         setUpNavView();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-
-
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
                 mDrawerLayout.closeDrawers();
-
                 int id = menuItem.getItemId();
-                String title = menuItem.getTitle().toString();
 
                 if(id == R.id.go_record){
-                    Toast.makeText(context, title + ": 계정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
+                    Log.i("test","go_record");
+                    Intent intent = new Intent( toolbar_hm.this , recording_hm.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP | intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
                 }
                 else if(id == R.id.go_register){
-                    Toast.makeText(context, title + ": 설정 정보를 확인합니다.", Toast.LENGTH_SHORT).show();
+                    Log.i("test","go_register");
+                    Intent intent2 = new Intent( toolbar_hm.this , register_hm.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent2.setFlags(intent2.FLAG_ACTIVITY_SINGLE_TOP | intent2.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent2);
+
                 }
                 else if(id == R.id.go_sound_list){
-                    Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
+                    Log.i("test","go_sound_list");
+                    Intent intent3 = new Intent( toolbar_hm.this , soundlist_hm.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent3.setFlags(intent3.FLAG_ACTIVITY_SINGLE_TOP | intent3.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent3);
+
                 }
                 else if(id == R.id.go_setting){
-                    Toast.makeText(context, title + ": 로그아웃 시도중", Toast.LENGTH_SHORT).show();
+                    Log.i("test","go_setting");
+                    Intent intent4 = new Intent( toolbar_hm.this , setting_hm.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK  | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent4.setFlags(intent4.FLAG_ACTIVITY_SINGLE_TOP | intent4.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent4);
                 }
-
                 return true;
             }
         });

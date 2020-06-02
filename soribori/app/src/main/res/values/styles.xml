@@ -4,10 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#DBD9DF</item>
-        <item name="colorPrimaryDark">#150024</item>
+        <item name="colorPrimaryDark">#1B1B2F</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorSecondary">@color/White</item>
-
+        <item name="android:itemBackground">#132841</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -24,5 +24,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyItemFont" parent="android:Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/eraslightitc</item>
+    </style>
 
 </resources>

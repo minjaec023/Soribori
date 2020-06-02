@@ -6,14 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navi_header"
-        app:menu="@menu/navi_menu" />
+
 
     <RelativeLayout
         android:id="@+id/fullView_hm"
@@ -32,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Toolbar Title"
+                android:fontFamily="@font/eraslightitc"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title"
                 android:textSize="20sp"
@@ -47,8 +41,21 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"></FrameLayout>
+            android:layout_marginBottom="0dp">
+        </FrameLayout>
 
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#1A3556"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/navi_header"
+        app:itemTextAppearance="@style/MyItemFont"
+        app:itemTextColor="#ffffff"
+        app:menu="@menu/navi_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

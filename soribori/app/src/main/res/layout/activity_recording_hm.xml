@@ -16,7 +16,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.5"
 
 
         app:layout_constraintStart_toStartOf="parent"
@@ -25,17 +25,17 @@
 
     <ImageView
         android:id="@+id/mic_imageview"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:clickable="true"
         android:src="@drawable/mic_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.916"
-        app:srcCompat="@mipmap/ic_mic_on_icon" />
+        app:srcCompat="@drawable/record" />
 
     <ImageView
         android:id="@+id/stop_imageview"
@@ -45,11 +45,11 @@
         android:src="@drawable/stop_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.68"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944"
-        app:srcCompat="@mipmap/ic_stop_on_round" />
+        app:layout_constraintVertical_bias="0.916"
+        app:srcCompat="@drawable/tempstop" />
 
     <ImageView
         android:id="@+id/storage_imageview"
@@ -58,23 +58,24 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944"
+        app:layout_constraintVertical_bias="0.916"
         app:srcCompat="@drawable/ic_storage_black_24dp" />
 
     <TextView
         android:id="@+id/soribori_name"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:fontFamily="@font/eraslightitc"
         android:gravity="center_horizontal"
         android:text="Soribori"
         android:textColor="@color/White"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/waveView1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.38" />
@@ -83,14 +84,17 @@
         android:id="@+id/timer_textview"
         android:layout_width="311dp"
         android:layout_height="84dp"
-        android:text="00:00:00"
+        android:fontFamily="@font/godoroundedl"
         android:gravity="center_horizontal"
+        android:text="00:00:00"
         android:textColor="@color/White"
         android:textSize="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/mic_imageview"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waveView1" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.777" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
