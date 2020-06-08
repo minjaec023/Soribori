@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Phrase_frag"
-    android:background="@color/Black">
+    >
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -19,7 +19,10 @@
             android:id="@+id/checkBoxName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="미등록"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/eraslightitc"
+            android:text="Name"
             android:textColor="@color/White"
             android:buttonTint="@color/White"/>
     </LinearLayout>

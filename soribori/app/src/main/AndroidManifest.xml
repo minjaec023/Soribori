@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".setting_hm"></activity>
+        <activity android:name=".register_name_hm"></activity>
+        <activity android:name=".register_custom_hm" />
+        <activity android:name=".setting_hm" />
         <activity android:name=".soundlist_hm" />
         <activity android:name=".register_hm" />
         <activity android:name=".recording_hm" />

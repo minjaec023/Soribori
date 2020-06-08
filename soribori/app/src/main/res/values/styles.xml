@@ -16,13 +16,20 @@
 
     <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar">
 
-        <item name="android:windowBackground">@drawable/loading7</item>
+        <item name="android:windowBackground">@drawable/real_splash_img</item>
 
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="tab_text" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/eraslightitc</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
     <style name="MyItemFont" parent="android:Widget.TextView">
         <item name="android:textStyle">bold</item>

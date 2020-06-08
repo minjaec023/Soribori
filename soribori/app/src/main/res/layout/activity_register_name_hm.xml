@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/new_soribori_splash"
-    tools:context=".SplashActivity">
+    android:background="@drawable/hm_black_purple_background"
+    tools:context=".register_name_hm">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

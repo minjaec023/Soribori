@@ -15,7 +15,7 @@ public class SplashActivity extends Activity {
 
         try{
 
-            Thread.sleep(700);
+            Thread.sleep(2700);
 
 
         }catch (InterruptedException e) {
@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
         }
 
 
-        Intent intent= new Intent(this, Recording.class);
+        Intent intent= new Intent(this, recording_hm.class);
 
         startActivity(intent);
 

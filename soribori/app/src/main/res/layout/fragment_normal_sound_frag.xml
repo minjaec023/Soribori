@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Normal_sound_frag"
-    android:background="@color/Black">
+    >
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -17,49 +17,67 @@
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="match_parent"
+            android:fontFamily="@font/eraslightitc"
             android:layout_height="50dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      아기 울음소리" />
+            android:text="      Baby Crying" />
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="match_parent"
+            android:fontFamily="@font/eraslightitc"
             android:layout_height="50dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      화재 경보" />
+            android:text="      Fire Alarm" />
 
         <CheckBox
             android:id="@+id/checkBox4"
             android:layout_width="match_parent"
+            android:fontFamily="@font/eraslightitc"
             android:layout_height="50dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      경적소리" />
+            android:text="      Car Horn" />
 
         <CheckBox
             android:id="@+id/checkBox5"
             android:layout_width="match_parent"
+            android:fontFamily="@font/eraslightitc"
+            android:textSize="17dp"
+            android:textStyle="bold"
             android:layout_height="50dp"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      지하철" />
+            android:text="      Subway" />
 
         <CheckBox
             android:id="@+id/checkBox6"
             android:layout_width="match_parent"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/eraslightitc"
             android:layout_height="50dp"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      버스" />
+            android:text="      Bus" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="match_parent"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/eraslightitc"
             android:layout_height="50dp"
             android:textColor="@color/White"
             android:buttonTint="@color/White"
-            android:text="      사이렌" />
+            android:text="      Siren" />
     </LinearLayout>
 </FrameLayout>
