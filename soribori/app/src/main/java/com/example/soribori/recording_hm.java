@@ -70,6 +70,9 @@ import retrofit2.Response;
 
 public class recording_hm extends toolbar_hm implements SpeechRecognizeListener {
 
+
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////// Wave view var //////////////////////////////////////////////////////////
     private WaveHelper mWaveHelper;
@@ -344,6 +347,9 @@ public class recording_hm extends toolbar_hm implements SpeechRecognizeListener 
                 startActivity(Intent.createChooser(intent, "Open Folder"));
             }
         });
+
+
+
     }
 
 
@@ -391,43 +397,43 @@ public class recording_hm extends toolbar_hm implements SpeechRecognizeListener 
                     ////// 여기에 post 코드 추가할것!
                     if(recording_counter == 0) {
                         File record_file10 = new File(recording_hm.this.getFilesDir(), "recordefile10.wav");
-                        fileUpload(record_file10);
+                        fileUpload(record_file10,1,null);
                     }
                     else if(recording_counter == 1) {
                         File record_file01 = new File(recording_hm.this.getFilesDir(), "recordefile01.wav");
-                        fileUpload(record_file01);
+                        fileUpload(record_file01,1,null);
                     }
                     else if(recording_counter == 2) {
                         File record_file02 = new File(recording_hm.this.getFilesDir(), "recordefile02.wav");
-                        fileUpload(record_file02);
+                        fileUpload(record_file02,1,null);
                     }
                     else if(recording_counter == 3) {
                         File record_file03 = new File(recording_hm.this.getFilesDir(), "recordefile03.wav");
-                        fileUpload(record_file03);
+                        fileUpload(record_file03,1,null);
                     }
                     else if(recording_counter == 4) {
                         File record_file04 = new File(recording_hm.this.getFilesDir(), "recordefile04.wav");
-                        fileUpload(record_file04);
+                        fileUpload(record_file04,1,null);
                     }
                     else if(recording_counter == 5) {
                         File record_file05 = new File(recording_hm.this.getFilesDir(), "recordefile05.wav");
-                        fileUpload(record_file05);
+                        fileUpload(record_file05,1,null);
                     }
                     else if(recording_counter == 6) {
                         File record_file06 = new File(recording_hm.this.getFilesDir(), "recordefile06.wav");
-                        fileUpload(record_file06);
+                        fileUpload(record_file06,1,null);
                     }
                     else if(recording_counter == 7) {
                         File record_file07 = new File(recording_hm.this.getFilesDir(), "recordefile07.wav");
-                        fileUpload(record_file07);
+                        fileUpload(record_file07,1,null);
                     }
                     else if(recording_counter == 8) {
                         File record_file08 = new File(recording_hm.this.getFilesDir(), "recordefile08.wav");
-                        fileUpload(record_file08);
+                        fileUpload(record_file08,1,null);
                     }
                     else if(recording_counter == 9) {
                         File record_file09 = new File(recording_hm.this.getFilesDir(), "recordefile09.wav");
-                        fileUpload(record_file09);
+                        fileUpload(record_file09,1,null);
                     }
                     ///////////////////////////////
                 } catch (Exception e) {
@@ -725,7 +731,7 @@ public class recording_hm extends toolbar_hm implements SpeechRecognizeListener 
 
 
     ////파일 send 하는 함수 관련////
-    public void fileUpload (File file) {
+    public void fileUpload (File file, int post_type, String custom_sound_name) {
 
         Log.d("Send Test", "file===" + file.getName());
 
@@ -737,9 +743,13 @@ public class recording_hm extends toolbar_hm implements SpeechRecognizeListener 
 
         requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-        mapRequestBody.put("file\"; filename=\"" + file.getName(), requestBody);
-        mapRequestBody.put("test", RequestBody.create(MediaType.parse("text/plain"), "gogogogogogogog"));
-
+        if(post_type==1) {
+            mapRequestBody.put("file\"; filename=\"" + file.getName(), requestBody);
+            mapRequestBody.put("post_type", RequestBody.create(MediaType.parse("text/plain"), "prediction"));
+        }else if(post_type==2){
+            mapRequestBody.put("post_type", RequestBody.create(MediaType.parse("text/plain"), "user"));
+            mapRequestBody.put("sound_name", RequestBody.create(MediaType.parse("text/plain"), custom_sound_name));
+        }
 
         body = MultipartBody.Part.createFormData("fileName", file.getName(), requestBody);
         arrBody.add(body);
