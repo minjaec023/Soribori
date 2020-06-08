@@ -770,8 +770,8 @@ public class MainActivity extends ToolbarActivity implements View.OnClickListene
 
     ///녹음 시작 함수///
     private void recordAudio(){
-            recorder.start();
-            Log.i("Recording", "녹음 진행중");
+        recorder.start();
+        Log.i("Recording", "녹음 진행중");
     }
 
     ///녹음 중지(완료) 함수///

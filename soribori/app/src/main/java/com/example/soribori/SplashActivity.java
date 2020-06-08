@@ -15,7 +15,7 @@ public class SplashActivity extends Activity {
 
         try{
 
-            Thread.sleep(2700);
+            Thread.sleep(1000);
 
 
         }catch (InterruptedException e) {

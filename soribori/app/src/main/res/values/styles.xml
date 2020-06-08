@@ -16,7 +16,7 @@
 
     <style name="SplashTheme" parent="@android:style/Theme.Light.NoTitleBar">
 
-        <item name="android:windowBackground">@drawable/real_splash_img</item>
+        <item name="android:windowBackground">@drawable/real_real_soribori_splash</item>
 
     </style>
 
