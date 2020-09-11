@@ -1,2 +1,2 @@
-# soribori
-sound visualization project
+# Soribori
+딥러닝을 이용한 소리 시각화 어플리케이션
